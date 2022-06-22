@@ -1,4 +1,4 @@
-package com.example.javaexercise.reverse;
+package com.example.javaexercise.exercise;
 
 import java.util.*;
 

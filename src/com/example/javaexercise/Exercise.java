@@ -1,9 +1,6 @@
 package com.example.javaexercise;
 
-import com.example.javaexercise.reverse.StringExercise;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.javaexercise.exercise.StringExercise;
 
 public class Exercise {
     public static void main (String[] args) {
