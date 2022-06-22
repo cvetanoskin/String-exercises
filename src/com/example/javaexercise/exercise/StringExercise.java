@@ -244,4 +244,70 @@ public class StringExercise {
         return str.substring(0, position) + str.substring(position + 1);
     }
 
+    public String phoneDecoder(String inputString) {
+
+        if (inputString == null || inputString.equals("")) {
+            throw new NullPointerException("Input is empty");
+        }
+
+        if (inputString.length() != 10) {
+            throw new NumberFormatException("Input length exceeds the expected number length");
+        }
+
+        if (!isValidPhoneNumberInput(inputString)) {
+            throw new NumberFormatException("Input contains invalid characters");
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+
+        Map<Integer, List<String>> numberLettersMap = new HashMap<>();
+        numberLettersMap.put(2, Arrays.asList("A", "B", "C", "a", "b", "c"));
+        numberLettersMap.put(3, Arrays.asList("D", "E", "F", "d", "e", "f"));
+        numberLettersMap.put(4, Arrays.asList("G", "H", "I", "g", "h", "i"));
+        numberLettersMap.put(5, Arrays.asList("J", "K", "L", "j", "k", "l"));
+        numberLettersMap.put(6, Arrays.asList("M", "N", "O", "m", "n", "o"));
+        numberLettersMap.put(7, Arrays.asList("P", "Q", "R", "S", "p", "q", "r", "s"));
+        numberLettersMap.put(8, Arrays.asList("T", "Y", "V", "t", "y", "v"));
+        numberLettersMap.put(9, Arrays.asList("W", "X", "Y", "Z", "w", "x", "y", "z"));
+
+        String[] split = inputString.split("");
+        int count = 0;
+        for (String s : split) {
+            count++;
+            int number;
+            try {
+                number = Integer.parseInt(s);
+                appendNumberWithFormat(sb, count, number);
+            } catch (NumberFormatException nfe) {
+                System.out.println("Entry is not numeric. Message: " + nfe.getMessage());
+                for (Map.Entry<Integer, List<String>> entry : numberLettersMap.entrySet()) {
+                    if (entry.getValue().contains(s)) {
+                        appendNumberWithFormat(sb, count, entry.getKey());
+                        break;
+                    }
+                }
+            }
+        }
+
+        return sb.toString();
+    }
+
+    private void appendNumberWithFormat(StringBuilder sb, int count, Integer number) {
+        switch (count) {
+            case 4 -> sb.append(")").append(number);
+            case 7 -> sb.append("-").append(number);
+            default -> sb.append(number);
+        }
+    }
+
+    private boolean isValidPhoneNumberInput(String string) {
+        //needs improvement for special characters
+        String number = ".*[0-9].*";
+        String uppercaseLetters = ".*[A-Z].*";
+        String lowercaseLetters = ".*[a-z].*";
+        return string.matches(number) && (string.matches(uppercaseLetters) || string.matches(lowercaseLetters));
+    }
+
+
 }

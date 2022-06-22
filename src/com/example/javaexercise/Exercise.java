@@ -20,6 +20,7 @@ public class Exercise {
         System.out.println(stringExerciseObject.reversePreserve("India Is my country"));
         System.out.println(stringExerciseObject.swap("Love", "You"));
         System.out.println(stringExerciseObject.removeChar("India is my country", 7));
+        System.out.println(stringExerciseObject.phoneDecoder("800888Tes%"));
 
     }
 }
